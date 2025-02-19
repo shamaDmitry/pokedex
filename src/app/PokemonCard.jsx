@@ -3,10 +3,7 @@ import { getColor, getColorWithOpacity, getIcon } from '../lib/colorMap'
 import { TypeBadge } from '@/app/TypeBadge'
 import { cn } from '@/lib/utils'
 import { Favorite2Icon } from '@/icons/Favorite2Icon'
-
-const formatPokemonId = (id) => {
-  return String(id).padStart(3, '0')
-}
+import { formatPokemonId } from '../lib/utils'
 
 export const PokemonCard = ({ data }) => {
   const { types, order, name, sprites, id } = data

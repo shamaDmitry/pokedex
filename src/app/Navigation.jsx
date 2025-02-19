@@ -53,8 +53,6 @@ export const Navigation = ({ className }) => {
         return (
           <NavLink key={menuItem.id} to={menuItem.path} className="flex flex-col items-center justify-center">
             {({ isActive }) => {
-              console.log('isActive', isActive)
-
               return (
                 <div className="flex items-center justify-center flex-col">
                   <span>{isActive ? menuItem.activeIcon : menuItem.icon}</span>

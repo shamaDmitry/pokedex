@@ -25,7 +25,7 @@ export const PokedexPage = () => {
   }, [])
 
   return (
-    <div>
+    <div className="grid grid-cols-1 xl:grid-cols-4 md:grid-cols-2 gap-4">
       {data.map((pokemon) => (
         <PokemonCard key={pokemon.id} data={pokemon} />
       ))}
