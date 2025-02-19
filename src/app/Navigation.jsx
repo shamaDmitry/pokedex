@@ -11,23 +11,56 @@ import { ProfileActiveIcon } from '@/icons/ProfileActiveIcon'
 import { cn } from '../lib/utils'
 
 const menuItems = [
-  { id: uuidv4(), path: '/pokedex', icon: <PokedexIcon />, activeIcon: <PokedexActiveIcon />, name: 'pokedex' },
-  { id: uuidv4(), path: '/regions', icon: <RegionsIcon />, activeIcon: <RegionsActiveIcon />, name: 'regions' },
-  { id: uuidv4(), path: '/favorites', icon: <FavoritesIcon />, activeIcon: <FavoritesActiveIcon />, name: 'favorites' },
-  { id: uuidv4(), path: '/profile', icon: <ProfileIcon />, activeIcon: <ProfileActiveIcon />, name: 'profile' }
+  {
+    id: uuidv4(),
+    path: '/pokedex',
+    icon: <PokedexIcon className="text-muted" />,
+    activeIcon: <PokedexActiveIcon />,
+    name: 'pokedex'
+  },
+  {
+    id: uuidv4(),
+    path: '/regions',
+    icon: <RegionsIcon className="text-muted" />,
+    activeIcon: <RegionsActiveIcon />,
+    name: 'regions'
+  },
+  {
+    id: uuidv4(),
+    path: '/favorites',
+    icon: <FavoritesIcon className="text-muted" />,
+    activeIcon: <FavoritesActiveIcon />,
+    name: 'favorites'
+  },
+  {
+    id: uuidv4(),
+    path: '/profile',
+    icon: <ProfileIcon className="text-muted" />,
+    activeIcon: <ProfileActiveIcon />,
+    name: 'profile'
+  }
 ]
 
 export const Navigation = ({ className }) => {
   return (
-    <div className={cn('flex gap-4 *:flex-auto fixed bg-white py-2 h-[72px] bottom-0 left-0 w-full', className)}>
+    <div
+      className={cn(
+        'flex gap-4 *:flex-auto border-t border-t-muted fixed bg-white py-2 h-[72px] bottom-0 left-0 w-full z-[1000]',
+        className
+      )}
+    >
       {menuItems.map((menuItem) => {
         return (
-          <NavLink key={menuItem.id} to={menuItem.path}>
+          <NavLink key={menuItem.id} to={menuItem.path} className="flex flex-col items-center justify-center">
             {({ isActive }) => {
+              console.log('isActive', isActive)
+
               return (
                 <div className="flex items-center justify-center flex-col">
                   <span>{isActive ? menuItem.activeIcon : menuItem.icon}</span>
-                  <span className={cn('capitalize', isActive ? 'opacity-100' : 'opacity-0')}>{menuItem.name}</span>
+                  <span className={cn({ 'capitalize hidden opacity-0': true, 'opacity-100 block': isActive })}>
+                    {menuItem.name}
+                  </span>
                 </div>
               )
             }}

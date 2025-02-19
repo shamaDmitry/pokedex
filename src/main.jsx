@@ -6,6 +6,7 @@ import { PokedexPage } from './pages/PokedexPage'
 import { RegionsPage } from './pages/RegionsPage'
 import { FavoritesPage } from './pages/FavoritesPage'
 import { ProfilePage } from './pages/ProfilePage'
+import { PokemonPage } from './pages/PokemonPage'
 
 // createRoot(document.getElementById('root')).render(<RouterProvider router={routes} />)
 
@@ -19,6 +20,8 @@ createRoot(document.getElementById('root')).render(
         <Route path="favorites" element={<FavoritesPage />} />
         <Route path="profile" element={<ProfilePage />} />
       </Route>
+
+      <Route path="pokemon/:id" element={<PokemonPage />} />
     </Routes>
   </BrowserRouter>
 )
