@@ -1,6 +1,7 @@
 import { PokemonCard } from '../app/PokemonCard'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import { Link } from 'react-router'
 
 export const PokedexPage = () => {
   const [data, setData] = useState([])

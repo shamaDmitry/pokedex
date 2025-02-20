@@ -45,7 +45,7 @@ export const Navigation = ({ className }) => {
   return (
     <div
       className={cn(
-        'flex gap-4 *:flex-auto border-t border-t-muted fixed bg-white py-2 h-[72px] bottom-0 left-0 w-full z-[1000]',
+        'flex gap-4 *:flex-auto border-t border-t-[#E6E6E6] fixed bg-white py-2 h-[72px] bottom-0 left-0 w-full z-[1000]',
         className
       )}
     >

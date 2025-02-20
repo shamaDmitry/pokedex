@@ -1,9 +1,11 @@
-const Spinner = () => {
+import { cn } from '@/lib/utils'
+import { getColor } from '../lib/colorMap'
+
+export const Spinner = ({ className, type }) => {
   return (
-    <div className="flex items-center justify-center">
-      <div className="animate-spin rounded-full size-8 border-t-2 border-b-2 border-blue-500"></div>
-    </div>
+    <div
+      style={{ borderColor: getColor(type) }}
+      className={cn('animate-spin rounded-full size-6 border-4 border-blue-500 !border-t-transparent', className)}
+    />
   )
 }
-
-export default Spinner
