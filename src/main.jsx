@@ -21,7 +21,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="profile" element={<ProfilePage />} />
       </Route>
 
-      <Route path="pokemon/:id" element={<PokemonPage />} />
+      <Route path="pokemon/:name" element={<PokemonPage />} />
     </Routes>
   </BrowserRouter>
 )

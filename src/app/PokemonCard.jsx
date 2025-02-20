@@ -6,7 +6,7 @@ import { Favorite2Icon } from '@/icons/Favorite2Icon'
 import { formatPokemonId } from '../lib/utils'
 
 export const PokemonCard = ({ data }) => {
-  const { types, order, name, sprites, id } = data
+  const { types, order, name, sprites } = data
 
   return (
     <div
@@ -16,7 +16,7 @@ export const PokemonCard = ({ data }) => {
       <div className="font-semibold flex-1 py-3 px-4">
         <p className="text-xs mb-1 text-[#333]">Nº{formatPokemonId(order)}</p>
 
-        <NavLink to={`/pokemon/${id}`} className="text-xl mb-3 text-black capitalize inline-flex">
+        <NavLink to={`/pokemon/${name}`} className="text-xl mb-3 text-black capitalize inline-flex">
           {name}
         </NavLink>
 

@@ -3,9 +3,17 @@ import { BackIcon } from '@/icons/BackIcon'
 import { getIcon } from '@/lib/colorMap'
 import { useNavigate, useParams } from 'react-router'
 import { useEffect, useState } from 'react'
-import { cn, formatPokemonId } from '../lib/utils'
-import { getColor } from '../lib/colorMap'
-import { Headline } from '../app/Headline'
+import { capitalize, cn, fetcher, formatPokemonId } from '../lib/utils'
+import { getColor } from '@/lib/colorMap'
+import { Headline } from '@/app/Headline'
+import { TypeBadge } from '@/app/TypeBadge'
+import { StatItem } from '../app/StatItem'
+import { WeightIcon } from '../icons/WeightIcon'
+import { HeightIcon } from '../icons/HeightIcon'
+import { CategoryIcon } from '../icons/CategoryIcon'
+import { AbilityIcon } from '../icons/AbilityIcon'
+import { AbilityItem } from '../app/AbilityItem'
+import useSWR from 'swr'
 
 const bgColors = {
   '#5090D6': 'before:bg-water',
@@ -29,19 +37,23 @@ const bgColors = {
 }
 
 export const PokemonPage = () => {
+  const { name } = useParams()
   const navigate = useNavigate()
   const [data, setData] = useState(null)
-  const { id } = useParams()
+
+  const { data: species, isLoading } = useSWR(`https://pokeapi.co/api/v2/pokemon-species/${name}`, fetcher)
 
   useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+    fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
       .then((res) => res.json())
       .then((data) => {
         setData(data)
       })
-  }, [id])
+  }, [name])
 
   if (!data) return null
+
+  console.log('species', species)
 
   return (
     <div className="min-h-screen relative">
@@ -73,9 +85,66 @@ export const PokemonPage = () => {
 
       <div className="p-4">
         <Headline className="capitalize mb-2">{data.name}</Headline>
-        <div className="mb-5">Nº{formatPokemonId(data.order)}</div>
+        <div className="mb-6">Nº{formatPokemonId(data.order)}</div>
 
-        {JSON.stringify(data, null, 2)}
+        <div className="flex flex-wrap gap-2 mb-6">
+          {data.types.map((type) => {
+            return <TypeBadge key={type.slot} type={type.type.name} />
+          })}
+        </div>
+
+        <div className="mb-5">
+          Há uma semente de planta nas costas desde o dia em que este Pokémon nasce. A semente cresce lentamente.
+        </div>
+
+        <div className="grid grid-cols-2 gap-4 mb-5">
+          <div>
+            <div className="mb-2 flex items-center gap-2">
+              <WeightIcon className="size-4 text-black/60" />
+              <span className="uppercase font-medium text-xs text-black/60">Weight</span>
+            </div>
+
+            <StatItem value={`${data.weight} kg`} />
+          </div>
+
+          <div>
+            <div className="mb-2 flex items-center gap-2">
+              <HeightIcon className="size-4 text-black/60" />
+              <span className="uppercase font-medium text-xs text-black/60">Height</span>
+            </div>
+
+            <StatItem value={`${(data.height * 1) / 10} m`} />
+          </div>
+
+          <div>
+            <div className="mb-2 flex items-center gap-2">
+              <CategoryIcon className="size-4 text-black/60" />
+              <span className="uppercase font-medium text-xs text-black/60">Category</span>
+            </div>
+
+            <div className="flex flex-wrap gap-2 *:flex-1">
+              {species.egg_groups.map((item) => {
+                return <StatItem key={item.url} value={capitalize(item.name)} />
+              })}
+            </div>
+          </div>
+
+          <div>
+            <div className="mb-2 flex items-center gap-2">
+              <AbilityIcon className="size-4 text-black/60" />
+
+              <span className="uppercase font-medium text-xs text-black/60">Ability</span>
+            </div>
+
+            <div className="flex flex-wrap gap-2 *:flex-1">
+              {data.abilities.map((ability) => {
+                return <AbilityItem key={ability.slot} url={ability.ability.url} />
+              })}
+            </div>
+          </div>
+        </div>
+
+        <Headline className="capitalize mb-2">Weaknesses</Headline>
       </div>
     </div>
   )
