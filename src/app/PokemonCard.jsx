@@ -10,7 +10,7 @@ export const PokemonCard = ({ data }) => {
 
   return (
     <div
-      className={cn('rounded-2xl flex gap-2.5')}
+      className={cn('rounded-2xl flex gap-2.5 flex-col sm:flex-row')}
       style={{ backgroundColor: getColorWithOpacity(types[0].type.name, 0.5) }}
     >
       <div className="font-semibold flex-1 py-3 px-4">
@@ -28,7 +28,9 @@ export const PokemonCard = ({ data }) => {
       </div>
 
       <div
-        className={cn('rounded-2xl w-[126px] shrink-0 flex items-center justify-center relative')}
+        className={cn(
+          'order-first sm:order-last rounded-2xl sm:w-[126px] w-full shrink-0 flex items-center justify-center relative'
+        )}
         style={{ backgroundColor: getColor(types[0].type.name) }}
       >
         <button className="cursor-pointer size-8 z-50 absolute top-1.5 right-1.5 hover:opacity-50">

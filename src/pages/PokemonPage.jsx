@@ -66,7 +66,7 @@ export const PokemonPage = () => {
           className: 'h-[200px] absolute left-1/2 -translate-x-1/2 trans text-white opacity-60 top-5'
         })}
 
-        <img src={data.sprites.other.showdown.front_default} alt="" className="relative h-[150px]" />
+        <img src={data.sprites.other['official-artwork'].front_default} alt="" className="relative h-[150px]" />
       </div>
 
       <div className="absolute top-0 left-0 p-4 flex items-center justify-between w-full">
@@ -83,78 +83,84 @@ export const PokemonPage = () => {
       </div>
 
       <div className="p-4">
-        <Headline className="capitalize mb-2">{data.name}</Headline>
-        <div className="mb-6">Nº{formatPokemonId(data.order)}</div>
-
-        <div className="flex flex-wrap gap-2 mb-6">
-          {data.types.map((type) => {
-            return <TypeBadge key={type.slot} type={type.type.name} />
-          })}
-        </div>
-
-        <div className="mb-5">
-          Há uma semente de planta nas costas desde o dia em que este Pokémon nasce. A semente cresce lentamente.
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-4 mb-5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div>
-            <div className="mb-2 flex items-center gap-2">
-              <WeightIcon className="size-4 text-black/60" />
-              <span className="uppercase font-medium text-xs text-black/60">Weight</span>
-            </div>
+            <Headline className="capitalize mb-2">{data.name}</Headline>
+            <div className="mb-6">Nº{formatPokemonId(data.order)}</div>
 
-            <StatItem value={`${data.weight} kg`} />
-          </div>
-
-          <div>
-            <div className="mb-2 flex items-center gap-2">
-              <HeightIcon className="size-4 text-black/60" />
-              <span className="uppercase font-medium text-xs text-black/60">Height</span>
-            </div>
-
-            <StatItem value={`${(data.height * 1) / 10} m`} />
-          </div>
-
-          <div>
-            <div className="mb-2 flex items-center gap-2">
-              <CategoryIcon className="size-4 text-black/60" />
-              <span className="uppercase font-medium text-xs text-black/60">Category</span>
-            </div>
-
-            <div className="flex flex-wrap gap-2 *:flex-1">
-              {species?.egg_groups.map((item) => {
-                return <StatItem key={item.url} value={capitalize(item.name)} />
+            <div className="flex flex-wrap gap-2 mb-6">
+              {data.types.map((type) => {
+                return <TypeBadge key={type.slot} type={type.type.name} />
               })}
             </div>
+
+            <div className="mb-5">
+              Há uma semente de planta nas costas desde o dia em que este Pokémon nasce. A semente cresce lentamente.
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-4 mb-5">
+              <div>
+                <div className="mb-2 flex items-center gap-2">
+                  <WeightIcon className="size-4 text-black/60" />
+                  <span className="uppercase font-medium text-xs text-black/60">Weight</span>
+                </div>
+
+                <StatItem value={`${data.weight} kg`} />
+              </div>
+
+              <div>
+                <div className="mb-2 flex items-center gap-2">
+                  <HeightIcon className="size-4 text-black/60" />
+                  <span className="uppercase font-medium text-xs text-black/60">Height</span>
+                </div>
+
+                <StatItem value={`${(data.height * 1) / 10} m`} />
+              </div>
+
+              <div>
+                <div className="mb-2 flex items-center gap-2">
+                  <CategoryIcon className="size-4 text-black/60" />
+                  <span className="uppercase font-medium text-xs text-black/60">Category</span>
+                </div>
+
+                <div className="flex flex-wrap gap-2 *:flex-1">
+                  {species?.egg_groups.map((item) => {
+                    return <StatItem key={item.url} value={capitalize(item.name)} />
+                  })}
+                </div>
+              </div>
+
+              <div className="flex flex-col">
+                <div className="mb-2 flex items-center gap-2">
+                  <AbilityIcon className="size-4 text-black/60" />
+
+                  <span className="uppercase font-medium text-xs text-black/60">Ability</span>
+                </div>
+
+                <div className="flex flex-wrap gap-2 *:flex-1 flex-1">
+                  {data.abilities.map((ability) => {
+                    return (
+                      <AbilityItem
+                        type={data.types[0].type.name}
+                        key={ability.slot}
+                        url={ability.ability.url}
+                        className="h-full"
+                      />
+                    )
+                  })}
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="flex flex-col">
-            <div className="mb-2 flex items-center gap-2">
-              <AbilityIcon className="size-4 text-black/60" />
+          <div>
+            <Headline tag="h2" className="text-center lg:text-left capitalize mb-2">
+              Evolution Chain
+            </Headline>
 
-              <span className="uppercase font-medium text-xs text-black/60">Ability</span>
-            </div>
-
-            <div className="flex flex-wrap gap-2 *:flex-1 flex-1">
-              {data.abilities.map((ability) => {
-                return (
-                  <AbilityItem
-                    type={data.types[0].type.name}
-                    key={ability.slot}
-                    url={ability.ability.url}
-                    className="h-full"
-                  />
-                )
-              })}
-            </div>
+            <EvolutionChain type={data.types[0].type.name} url={species?.evolution_chain.url} />
           </div>
         </div>
-
-        <Headline tag="h2" className="capitalize mb-2">
-          Evolution Chain
-        </Headline>
-
-        <EvolutionChain type={data.types[0].type.name} url={species?.evolution_chain.url} />
 
         {/* <Headline className="capitalize mb-2">Weaknesses</Headline> */}
       </div>

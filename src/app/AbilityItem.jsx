@@ -20,7 +20,7 @@ export const AbilityItem = ({ type, url, className }) => {
     return (
       <div
         className={cn(
-          'border cursor-help rounded-2xl p-2 font-medium border-black/10 text-center text-black/90 text-lg',
+          'border cursor-help whitespace-nowrap rounded-2xl p-2 font-medium border-black/10 text-center text-black/90 text-lg',
           className
         )}
         title={effect[0].short_effect}

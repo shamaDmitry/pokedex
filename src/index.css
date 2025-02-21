@@ -44,4 +44,14 @@ body {
   --color-ground: #d97845;
   --color-poison: #b567ce;
   --color-flying: #89aae3;
+  --color-muted-50: #f2f2f2;
+  --color-muted-100: #e6e6e6;
+  --color-muted-200: #cccccc;
+  --color-muted-300: #b3b3b3;
+  --color-muted-400: #999999;
+  --color-muted-500: #808080;
+  --color-muted-600: #666666;
+  --color-muted-700: #4d4d4d;
+  --color-muted-800: #333333;
+  --color-muted-900: #1a1a1a;
 }
